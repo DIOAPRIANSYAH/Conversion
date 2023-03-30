@@ -29,7 +29,7 @@ class Result extends StatelessWidget {
         children: <Widget>[
           const Text(
             "Hasil",
-            style: const TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.white),
             textAlign: TextAlign.justify,
           ),
           Text(

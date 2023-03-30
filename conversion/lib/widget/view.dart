@@ -14,6 +14,8 @@ class _ViewState extends State<View> {
   double _inputUser = 0;
   double _kelvin = 0;
   double _reamur = 0;
+  double _fahrenheit = 0;
+  double _rankine = 0;
 
   final etInput = TextEditingController();
 
@@ -23,8 +25,7 @@ class _ViewState extends State<View> {
 
   List<String> listViewItem = <String>[];
 
-  var listItem = ["Kelvin", "Reamur"];
-
+  var listItem = ["Kelvin", "Reamur", "Fahrenheit", "Rankine"];
   get key => null;
 
   @override
@@ -36,13 +37,18 @@ class _ViewState extends State<View> {
   void konversiSuhu() {
     setState(() {
       _inputUser = double.parse(etInput.text);
-      if (_newValue == "Kelvin")
-        _result = _inputUser + 273;
-      else
+      if (_newValue == "Kelvin") {
+        _result = 273.15 + _inputUser;
+      } else if (_newValue == "Fahrenheit") {
+        _result = (9 / 5) * _inputUser + 32;
+      } else if (_newValue == "Rankine") {
+        _result = (_inputUser + 273.15) * 9 / 5;
+      } else {
         _result = (4 / 5) * _inputUser;
+      }
     });
 
-    listViewItem.add(_result.toString());
+    listViewItem.add(_newValue.toString() + " : " + _result.toStringAsFixed(2));
   }
 
   @override
@@ -69,7 +75,7 @@ class _ViewState extends State<View> {
           ),
           Result(result: _result),
           Convert(konvertHandler: konversiSuhu),
-          Container(child: const Text("Riwayat Konversi")),
+          const Text("Riwayat Konversi"),
           Expanded(
             child: ListView(
               children: listViewItem.map((String value) {
